@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_theme.dart';
+import '../../../analisis/presentation/pages/analisis_page.dart';
 
-/// NavBar simplificado: logo + "Inicio" activo + etiqueta fija de estación
+/// NavBar simplificada: logo + "Inicio" activo + "Análisis" + etiqueta de estación
 class DashboardNavBar extends StatelessWidget implements PreferredSizeWidget {
   const DashboardNavBar({super.key});
 
@@ -24,8 +25,7 @@ class DashboardNavBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           // ── Logo ──────────────────────────────────────────────────────
           Container(
-            width: 32,
-            height: 32,
+            width: 32, height: 32,
             decoration: BoxDecoration(
               color: AppColors.primary,
               borderRadius: BorderRadius.circular(8),
@@ -36,18 +36,16 @@ class DashboardNavBar extends StatelessWidget implements PreferredSizeWidget {
           const Text(
             'PoliCloudy',
             style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
+              fontSize: 16, fontWeight: FontWeight.w800,
               color: AppColors.textPrimary,
             ),
           ),
 
-          const SizedBox(width: 32),
+          const SizedBox(width: 24),
 
-          // ── Nav link único: Inicio ─────────────────────────────────────
+          // ── Inicio (activo) ────────────────────────────────────────────
           Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
             decoration: BoxDecoration(
               color: AppColors.primary.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(8),
@@ -55,16 +53,45 @@ class DashboardNavBar extends StatelessWidget implements PreferredSizeWidget {
             child: const Text(
               'Inicio',
               style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
+                fontSize: 13, fontWeight: FontWeight.w600,
                 color: AppColors.primary,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          // ── Análisis ──────────────────────────────────────────────────
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const AnalisisPage()),
+            ),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(Icons.functions_outlined, size: 14, color: AppColors.textSecondary),
+                  SizedBox(width: 5),
+                  Text(
+                    'Análisis',
+                    style: TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.w500,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
           const Spacer(),
 
-          // ── Etiqueta fija de estación ──────────────────────────────────
+          // ── Etiqueta de estación ───────────────────────────────────────
           const Row(
             children: [
               _PulsatingDot(),
@@ -72,8 +99,7 @@ class DashboardNavBar extends StatelessWidget implements PreferredSizeWidget {
               Text(
                 'Estación EMA Poli',
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 13, fontWeight: FontWeight.w500,
                   color: AppColors.textSecondary,
                 ),
               ),
